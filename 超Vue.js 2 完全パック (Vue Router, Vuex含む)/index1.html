@@ -1,0 +1,88 @@
+<script src="vue.js"></script>
+
+<div id="app">
+    <input type="text" v-model="message">
+    <!-- <p v-once>{{ message }}</p> -->
+    <p>{{ message }}</p>
+    <button v-on:click="reverseMessage">メッセージを反転</button>
+
+    <p>{{ number + 100 }}</p>
+
+    <p>{{ ok ? 'YES': 'NO' }}</p>
+
+    <!-- <p>{{ sayHi() }}</p> -->
+
+    <p v-html="html"></p>
+
+    <p><a :href="url">url</a></p>
+    <p><a :[attribute]="url">attribute</a></p>
+
+    <p><a :href="urlTwitter" :id="number">twitter</a></p>
+    <p><a v-bind="{href: urlTwitter, id: number}">twitter</a></p>
+    <p><a v-bind="twitterObject">twitter</a></p>
+
+    <p>現在 {{ num }} 回クリックされているよ</p>
+    <button v-on:click="num += 1">カウントアップ</button>
+    <p>現在 {{ num }} 回クリックされているよ</p>
+    <button v-on:click="countUp">カウントアップ</button>
+    <button @click="countUp">カウントアップ</button>
+
+    <p v-on:mousemove="changeMousePosition1">マウスを載せてください</p>
+    <p>x: {{ x1 }}, y: {{ y1 }}</p>
+    <p v-on:mousemove="changeMousePosition2($event, 10)">マウスを載せてください
+        <span v-on:mousemove.stop>反応しないでください</span>
+    </p>
+    <p>x: {{ x2 }}, y: {{ y2 }}</p>
+
+    <a v-on:click.prevent href="https://twitter.com/">twitter</a>
+
+    <p><input type="text" v-on:keyup.space.enter="myAlert"></p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            message: 'hello world',
+            number: 1,
+            ok: true,
+            html: '<h1>hello world</h1>',
+            url: 'https://github.com',
+            attribute: 'href',
+            number: 100,
+            urlTwitter: 'https://twitter.com',
+            twitterObject: {
+                href: 'https://twitter.com',
+                id: 100
+            },
+            num: 0,
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 0,
+        },
+        methods: {
+            reverseMessage: function() {
+                this.message = this.message.split('').reverse().join('');
+            },
+            sayHi: function() {
+                this.message = 'Hello VueJS'
+                return 'Hi';
+            },
+            countUp: function() {
+                this.num += 1
+            },
+            changeMousePosition1: function(event) {
+                this.x1 = event.clientX;
+                this.y1 = event.clientY;
+            },
+            changeMousePosition2: function(event, divnum) {
+                this.x2 = event.clientX / divnum;
+                this.y2 = event.clientY/ divnum;
+            },
+            myAlert() {
+                alert('アラート');
+            },
+        }
+    })
+</script>
