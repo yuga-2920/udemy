@@ -1,0 +1,21 @@
+<div id="app">
+    <my-component></my-component>
+    <my-component></my-component>
+    <my-component></my-component>
+</div>
+
+<script src="vue.js"></script>
+<script>
+    Vue.component('my-component', {
+        data: function(){
+            return {
+                number: 12
+            }
+        },
+        template: '<p>いいね({{ number }})</p>'
+    })
+
+    new Vue({
+        el: '#app'
+    })
+</script>
